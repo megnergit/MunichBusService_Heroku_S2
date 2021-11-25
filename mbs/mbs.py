@@ -1,3 +1,4 @@
+from datetime import timedelta
 import pandas as pd
 import numpy as np
 import urllib
@@ -66,7 +67,7 @@ def color_func(sentiment):
 # ====================================
 
 
-def query_text_mbs(BT):
+def query_text_mbs(BT, RADIUS):
 
     QUERY = 'q=Bus'
     QUERY2 = 'q=mvv'
@@ -76,7 +77,7 @@ def query_text_mbs(BT):
     # EXTENDED = 'tweet_mode=extended'
     COUNT = 'count=100'
     LAND_MARK = 'Marienplatz'
-    RADIUS = 20.0  # km
+#    RADIUS = 20.0  # km
     RT = urllib.parse.quote_plus('-is:retweet')
     URL_TWITTER_API = "https://api.twitter.com/1.1/search/tweets.json?"
     HEADERS = {"Authorization": "Bearer {}".format(BT)}
@@ -149,9 +150,10 @@ def polling_tweets(BT, DEEPL_AK,
                    MKL_AK='',
                    MKL_ST_MODEL_ID='',
                    MKL_EX_MODEL_ID='',
-                   DATA_DIR='./data',
+                   DATA_DIR=Path('./data'),
                    LOG_FILE='./log/log_file.txt',
-                   LOG_FILE_COLOR='./log/log_file_color.txt'
+                   LOG_FILE_COLOR='./log/log_file_color.txt',
+                   RADIUS=20.0,
                    ) -> None:
 
     max_id_str, initial_length = pre_polling(outfile,
@@ -160,7 +162,7 @@ def polling_tweets(BT, DEEPL_AK,
 
     revised_length = initial_length
     df_list = []
-    URL, HEADERS = query_text_mbs(BT)
+    URL, HEADERS = query_text_mbs(BT, RADIUS)
 
     for i in range(n_stopper):
         prev_length = revised_length
@@ -290,8 +292,84 @@ revised record length {revised_length} {max_id_str}',
 {revised_length} {m[0:4]} {m[4:8]} {m[8:12]} {m[12:16]} {m[16:20]}',
             file=log_file_color)
 
- # --------------------------------------------
 
+# ============================================
+# scratch for pie chart
+# --------------------------------------------
+
+def visualize_pie(df, size):
+
+    yesterday = datetime.today() - timedelta(days=1)
+    df_yesterday = df.loc[[x.date() == yesterday.date()
+                           for x in pd.to_datetime(df['created_at_tz'])], :]
+
+    cols = ['count_positive', 'count_neutral', 'count_negative']
+    labels = [s.replace('count_', '').capitalize() for s in cols]
+
+    df_yesterday
+    # overall sentiment
+    p1 = df_yesterday['positive_mean'] * df_yesterday['count_positive']
+    n1 = df_yesterday['negative_mean'] * df_yesterday['count_negative']
+    c1 = df_yesterday['count']
+
+    overall_sentiment = (p1.sum() + n1.sum())/c1.sum()
+
+    count_sent = df_yesterday[cols].sum(axis=0)
+    cs = 'Agsunset'  # 'Earth', 'Geyser', 'Viridis', 'thermal', 'solor', 'balance'
+    positive_color = sample_colorscale(cs, 0.9)[0]
+    negative_color = sample_colorscale(cs, 0.1)[0]
+    overall_color = sample_colorscale(cs, 0.5)[0]
+    neutral_color = 'lightgray'
+    neutral_color = 'thistle'
+
+    trace = go.Pie(labels=labels,
+                   values=count_sent[cols],
+                   direction='clockwise',
+                   sort=False,
+                   opacity=0.5,
+                   pull=0.025,
+                   hole=0.6,
+                   textinfo='text',
+                   text=labels,
+                   texttemplate="%{label} %{percent:.0%}",
+                   marker=dict(colors=[positive_color,
+                                       neutral_color,
+                                       negative_color]))
+
+    layout = go.Layout(
+        height=size * 0.5,
+        showlegend=False,
+        font=dict(size=20),
+        margin=dict(l=0, r=0, t=0, b=0),
+
+        # silver, darkgray, gray, dimgray
+        annotations=[
+            dict(font=dict(size=18, color='darkgray'),
+                 text='Sentiment Score',
+                 showarrow=False,
+                 x=0.5, y=0.4,
+                 xanchor='center', yanchor='middle'),
+            dict(font=dict(size=30, color=overall_color),
+                 #                  text='Positive',#
+                 text=f'{overall_sentiment:.2}',
+                 showarrow=False,
+                 x=0.5, y=0.5,
+                 xanchor='center', yanchor='middle')])
+
+    data = [trace]
+    fig = go.Figure(data=data, layout=layout)
+    fig.show()
+
+    return fig
+
+
+# DATA_DIR = Path('./data')
+# df = pd.read_csv(DATA_DIR/'mbs_agg.csv')
+# size = 640
+# fig = visualize_pie(df, size)
+
+
+# --------------------------------------------
 
 def preprocess_mbs(outfile,
                    MKL_AK, MKL_ST_MODEL_ID, MKL_EX_MODEL_ID,
@@ -313,7 +391,6 @@ def preprocess_mbs(outfile,
     # --------------------------------------------
     df_pn = add_sentiment_digit(df_kex)
     df_pn.to_csv(DATA_DIR/'mbs_pn.csv', index=False)
-
 #    df_pn['created_at'] = df_pn['created_at'].astype('datetime64[ns]')
     df_pn['created_at_tz'] = df_pn['created_at_tz'].astype('datetime64[ns]')
     df_agg = aggregate_sentiment_tz(df_pn, freq='12H')
@@ -461,8 +538,6 @@ def sort_mkl_st(df):
 def add_sentiment_digit(df):
     # expect :  df_stx
     # add columns ['sentiment_digit'], ['confidence_digit'],
-
-    # remove neutral
     df_pn = df.copy()
 
     df_pn['sentiment_digit'] = df_pn['sentiment']
@@ -690,7 +765,6 @@ def visualize_count(df, size):
     cs = 'Agsunset'  # 'Earth', 'Geyser', 'Viridis', 'thermal', 'solor', 'balance'
     positive_color = sample_colorscale(cs, 0.9)[0]
     negative_color = sample_colorscale(cs, 0.1)[0]
-    overall_color = sample_colorscale(cs, 0.5)[0]
 
     trace_zero = go.Scatter(
         x=[xmin, xmax],
@@ -761,11 +835,13 @@ def aggregate_sentiment(df, freq='60S'):
 
     df_agg = pd.DataFrame()
     df_agg['confidence_mean'] = df.groupby(pd.Grouper(
-        key='created_at', freq=freq)).mean()['confidence_digit']
+        key='created_at', freq=freq)).mean()['confidence_digit_zero_neutral']
     df_agg['confidence_std'] = df.groupby(pd.Grouper(
-        key='created_at', freq=freq)).std()['confidence_digit']
+        key='created_at', freq=freq)).std()['confidence_digit_zero_neutral']
     df_agg['count'] = df.groupby(pd.Grouper(
-        key='created_at', freq=freq)).count()['confidence_digit']
+        key='created_at', freq=freq)).count()['confidence_digit_zero_neutral']
+
+    # ---------------------------------------
 
     df_agg['positive_mean'] = df[df['sentiment'] == 'Positive'].groupby(
         pd.Grouper(key='created_at', freq=freq)).mean()['confidence_digit']
@@ -790,11 +866,13 @@ def aggregate_sentiment_tz(df, freq='60S'):
 
     df_agg = pd.DataFrame()
     df_agg['confidence_mean'] = df.groupby(pd.Grouper(
-        key='created_at_tz', freq=freq)).mean()['confidence_digit']
+        key='created_at_tz', freq=freq)).mean()['confidence_digit_zero_neutral']
     df_agg['confidence_std'] = df.groupby(pd.Grouper(
-        key='created_at_tz', freq=freq)).std()['confidence_digit']
+        key='created_at_tz', freq=freq)).std()['confidence_digit_zero_neutral']
     df_agg['count'] = df.groupby(pd.Grouper(
-        key='created_at_tz', freq=freq)).count()['confidence_digit']
+        key='created_at_tz', freq=freq)).count()['confidence_digit_zero_neutral']
+
+    # ---------------------------------------
 
     df_agg['positive_mean'] = df[df['sentiment'] == 'Positive'].groupby(
         pd.Grouper(key='created_at_tz', freq=freq)).mean()['confidence_digit']
