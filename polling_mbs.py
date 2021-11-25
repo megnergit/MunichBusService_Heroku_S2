@@ -8,14 +8,14 @@ import pretty_errors
 if __name__ == '__main__':
     args = sys.argv
 
-    if len(args) == 4:
+    if len(args) == 5:
         outfile = args[1]
         n_stopper = int(args[2])
         t_sleep = int(args[3])
-
+        radius = float(args[4])
     else:
         print(f'\033[33mUsage : \033[96mpython3 \033[0mpolling_mbs.py \
-[outfile="tweet.csv"] [n_stopper=100] [t_sleep=1]')
+[outfile="tweet.csv"] [n_stopper=100] [t_sleep=1] [radius (km)]')
         exit()
 
     AK = config.API_KEY  # not really necessary
@@ -28,8 +28,14 @@ if __name__ == '__main__':
     MKL_EX_MODEL_ID = config.MONKEYLEARN_KEYWORD_EXTRACTOR_MODEL_ID
 
     DATA_DIR = Path('./data')
-    LOG_FILE = Path('./log/log_file.txt')
-    LOG_FILE_COLOR = Path('./log/log_file_color.txt')
+    if radius < 20.0:
+        LOG_FILE = Path('./log/log_file_innen.txt')
+        LOG_FILE_COLOR = Path('./log/log_file_innen_color.txt')
+        DATA_DIR = Path('./data_innen')
+    else:
+        LOG_FILE = Path('./log/log_file.txt')
+        LOG_FILE_COLOR = Path('./log/log_file_color.txt')
+        DATA_DIR = Path('./data')
 
     polling_tweets(
         BT, DEEPL_AK,
@@ -40,7 +46,7 @@ if __name__ == '__main__':
         MKL_EX_MODEL_ID=MKL_EX_MODEL_ID,
         DATA_DIR=DATA_DIR,
         LOG_FILE=LOG_FILE,
-        LOG_FILE_COLOR=LOG_FILE_COLOR)
+        LOG_FILE_COLOR=LOG_FILE_COLOR, RADIUS=radius)
 
 # =========
 # scratch
