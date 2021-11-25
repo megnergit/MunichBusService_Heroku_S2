@@ -1,3 +1,4 @@
+from datetime import timedelta
 import pandas as pd
 import numpy as np
 import urllib
@@ -66,7 +67,7 @@ def color_func(sentiment):
 # ====================================
 
 
-def query_text_mbs(BT):
+def query_text_mbs(BT, RADIUS):
 
     QUERY = 'q=Bus'
     QUERY2 = 'q=mvv'
@@ -76,24 +77,15 @@ def query_text_mbs(BT):
     # EXTENDED = 'tweet_mode=extended'
     COUNT = 'count=100'
     LAND_MARK = 'Marienplatz'
-    RADIUS = 20.0  # km
+#    RADIUS = 20.0  # km
     RT = urllib.parse.quote_plus('-is:retweet')
     URL_TWITTER_API = "https://api.twitter.com/1.1/search/tweets.json?"
     HEADERS = {"Authorization": "Bearer {}".format(BT)}
     lat, lon = get_lat_lon(landmark=LAND_MARK)
     GEO = 'geocode='+str(lat)+','+str(lon)+','+str(RADIUS)+'km'
 
-#    URL = URL_TWITTER_API + QUERY+'&'+GEO+'&'+LANG+'&'+COUNT+'&'+RECENT
-#    URL = URL_TWITTER_API + GEO+'&'+LANG+'&'+COUNT+'&'+RT
-#    URL = URL_TWITTER_API + GEO+'&'+LANG+'&'+COUNT
     URL = URL_TWITTER_API + QUERY+'&'+GEO+'&'+LANG+'&'+COUNT+'&'+RT+'&'+RECENT
     return URL, HEADERS
-
-# --------------------------------------------
-# def collect_tweet(BT):
-#     URL, HEADERS = query_text_mbs(BT)
-#     response = requests.request("GET", URL, headers=HEADERS).json()
-#     return response
 
 # --------------------------------------------
 # polling function : curate tweets collections
@@ -145,13 +137,7 @@ current record length {initial_length} {max_id_str}',
 {initial_length} {m[0:4]} {m[4:8]} {m[8:12]} {m[12:16]} {m[16:20]}',
             file=log_file_color)
 
-# # steelblue skyblue plum orchid darkorchid pink lightpink
-#     else:
-#         initial_length = 0
-# #        since_id_str = '0'
-# #        since_id = 0
-# #        max_id = 0
-#         max_id_str = '0'
+# steelblue skyblue plum orchid darkorchid pink lightpink
 
     return max_id_str, initial_length
 
@@ -164,9 +150,10 @@ def polling_tweets(BT, DEEPL_AK,
                    MKL_AK='',
                    MKL_ST_MODEL_ID='',
                    MKL_EX_MODEL_ID='',
-                   DATA_DIR='./data',
+                   DATA_DIR=Path('./data'),
                    LOG_FILE='./log/log_file.txt',
-                   LOG_FILE_COLOR='./log/log_file_color.txt'
+                   LOG_FILE_COLOR='./log/log_file_color.txt',
+                   RADIUS=20.0,
                    ) -> None:
 
     max_id_str, initial_length = pre_polling(outfile,
@@ -175,7 +162,7 @@ def polling_tweets(BT, DEEPL_AK,
 
     revised_length = initial_length
     df_list = []
-    URL, HEADERS = query_text_mbs(BT)
+    URL, HEADERS = query_text_mbs(BT, RADIUS)
 
     for i in range(n_stopper):
         prev_length = revised_length
@@ -187,14 +174,6 @@ def polling_tweets(BT, DEEPL_AK,
                                                             LOG_FILE,
                                                             LOG_FILE_COLOR)
 
-        # print(' ')
-        # print('len(df_list)', len(df_list))
-        # print('revised_length ', revised_length)
-        # print('old_max_str ', max_id_str)
-        # print('new_max_str ', new_max_str)
-        # pdb.set_trace()
-        # store relevant files
-#        if int(new_max_str) > int(max_id_str):
         if revised_length > prev_length:
             preprocess_mbs(outfile,
                            MKL_AK, MKL_ST_MODEL_ID, MKL_EX_MODEL_ID,
@@ -212,10 +191,7 @@ def polling_tweets(BT, DEEPL_AK,
 
         time.sleep(t_sleep)
 
-    # post_polling(new_max_str, revised_length, LOG_FILE=LOG_FILE,
-    #              LOG_FILE_COLOR=LOG_FILE_COLOR)
-
-#    return
+    return
 
 # --------------------------------------------
 
@@ -234,30 +210,17 @@ def fetch_tweets(outfile, URL, HEADERS, max_id_str,
                          headers=HEADERS).json()
     if len(r['statuses']) == 0:
         new_max_str = r['search_metadata']['max_id_str']
-        # print('')
-        # print('zero r')
-        # print('old_max_str ', max_id_str)
-        # print('new_max_str ', new_max_str)
 
         return new_max_str, revised_length, df_list
 
     clean_r = clean_response(r)
     if len(clean_r['statuses']) == 0:
         new_max_str = clean_r['search_metadata']['max_id_str']
-        # print('')
-        # print('zero clean_r')
-        # print('old_max_str ', max_id_str)
-        # print('new_max_str ', new_max_str)
-
         return new_max_str, revised_length, df_list
 
     # revise new_max_str
     new_max_str = clean_r['search_metadata']['max_id_str']
     # ---------------------------
-    # store file
-    # print('inside fetch', len(clean_r['statuses']))
-    # print('old_max_str', max_id_str)
-    # print('new_max_str', new_max_str)
     df = response_to_csv(clean_r)
     # =============================================
     # DEEPL
@@ -267,11 +230,8 @@ def fetch_tweets(outfile, URL, HEADERS, max_id_str,
 
     df = pd.concat(df_list, axis=0)
     df.drop_duplicates(subset=['id'], inplace=True)
-#    length_after = len(df)
 
     df.sort_values(['id'], inplace=True)
-#    print(df.info())
-#    pdb.set_trace()
     column_order = ['id', 'created_at', 'created_at_tz', 'geo', 'place', 'coordinates',
                     'text', 'text_en', 'truncated', 'name', 'screen_name', ]
     if Path(outfile).exists():
@@ -280,11 +240,6 @@ def fetch_tweets(outfile, URL, HEADERS, max_id_str,
                   header=False, index=False)
     else:
         df.to_csv(outfile,  columns=column_order, index=False)
-
-#    print('')
-#    print('in fetch')
-#    print(df.tail())
-#    pdb.set_trace()
 
     retrieved_length = len(df)
     revised_length = revised_length + retrieved_length
@@ -318,7 +273,6 @@ ret: {retrieved_length:3} tot: {revised_length:5}', end='', file=log_file)
 
 def post_polling(max_id_str, revised_length, LOG_FILE, LOG_FILE_COLOR):
     # loggin only
-
     # terminal / text log file / for web page
     m = max_id_str
 
@@ -338,8 +292,84 @@ revised record length {revised_length} {max_id_str}',
 {revised_length} {m[0:4]} {m[4:8]} {m[8:12]} {m[12:16]} {m[16:20]}',
             file=log_file_color)
 
- # --------------------------------------------
 
+# ============================================
+# scratch for pie chart
+# --------------------------------------------
+
+def visualize_pie(df, size):
+
+    yesterday = datetime.today() - timedelta(days=1)
+    df_yesterday = df.loc[[x.date() == yesterday.date()
+                           for x in pd.to_datetime(df['created_at_tz'])], :]
+
+    cols = ['count_positive', 'count_neutral', 'count_negative']
+    labels = [s.replace('count_', '').capitalize() for s in cols]
+
+    df_yesterday
+    # overall sentiment
+    p1 = df_yesterday['positive_mean'] * df_yesterday['count_positive']
+    n1 = df_yesterday['negative_mean'] * df_yesterday['count_negative']
+    c1 = df_yesterday['count']
+
+    overall_sentiment = (p1.sum() + n1.sum())/c1.sum()
+
+    count_sent = df_yesterday[cols].sum(axis=0)
+    cs = 'Agsunset'  # 'Earth', 'Geyser', 'Viridis', 'thermal', 'solor', 'balance'
+    positive_color = sample_colorscale(cs, 0.9)[0]
+    negative_color = sample_colorscale(cs, 0.1)[0]
+    overall_color = sample_colorscale(cs, 0.5)[0]
+    neutral_color = 'lightgray'
+    neutral_color = 'thistle'
+
+    trace = go.Pie(labels=labels,
+                   values=count_sent[cols],
+                   direction='clockwise',
+                   sort=False,
+                   opacity=0.5,
+                   pull=0.025,
+                   hole=0.6,
+                   textinfo='text',
+                   text=labels,
+                   texttemplate="%{label} %{percent:.0%}",
+                   marker=dict(colors=[positive_color,
+                                       neutral_color,
+                                       negative_color]))
+
+    layout = go.Layout(
+        height=size * 0.5,
+        showlegend=False,
+        font=dict(size=20),
+        margin=dict(l=0, r=0, t=0, b=0),
+
+        # silver, darkgray, gray, dimgray
+        annotations=[
+            dict(font=dict(size=18, color='darkgray'),
+                 text='Sentiment Score',
+                 showarrow=False,
+                 x=0.5, y=0.4,
+                 xanchor='center', yanchor='middle'),
+            dict(font=dict(size=30, color=overall_color),
+                 #                  text='Positive',#
+                 text=f'{overall_sentiment:.2}',
+                 showarrow=False,
+                 x=0.5, y=0.5,
+                 xanchor='center', yanchor='middle')])
+
+    data = [trace]
+    fig = go.Figure(data=data, layout=layout)
+    fig.show()
+
+    return fig
+
+
+# DATA_DIR = Path('./data')
+# df = pd.read_csv(DATA_DIR/'mbs_agg.csv')
+# size = 640
+# fig = visualize_pie(df, size)
+
+
+# --------------------------------------------
 
 def preprocess_mbs(outfile,
                    MKL_AK, MKL_ST_MODEL_ID, MKL_EX_MODEL_ID,
@@ -349,7 +379,6 @@ def preprocess_mbs(outfile,
     df = pd.read_csv(input_file,
                      parse_dates=['created_at'])
 
-#    pdb.set_trace()  # already broken
     # =============================================
     # monkey learn
     # --------------------------------------------
@@ -357,27 +386,14 @@ def preprocess_mbs(outfile,
     df_kex = get_mkl_ex_dummy(df_stx, MKL_AK, MKL_EX_MODEL_ID)
     df_kex.to_csv(DATA_DIR/'mbs_kex.csv', index=False)
 
-#    print('df_kex inside preprocess_mbs')
-#     print(df_kex.info())
-#     pdb.set_trace()
     # =============================================
     # aggregate
     # --------------------------------------------
     df_pn = add_sentiment_digit(df_kex)
     df_pn.to_csv(DATA_DIR/'mbs_pn.csv', index=False)
-
-#    print('df_pn')
-#    print(df_pn.info())
-#    pdb.set_trace()
-
 #    df_pn['created_at'] = df_pn['created_at'].astype('datetime64[ns]')
     df_pn['created_at_tz'] = df_pn['created_at_tz'].astype('datetime64[ns]')
-    #    df_agg = aggregate_sentiment(df_pn, freq='12H')
-
     df_agg = aggregate_sentiment_tz(df_pn, freq='12H')
- #   print('df_agg')
-#    print(df_agg.info())
-#    pdb.set_trace()
 
     # need to store index as well, since that is the datetime
     df_agg.to_csv(DATA_DIR/'mbs_agg.csv')
@@ -415,9 +431,6 @@ def clean_response(response):
 
 def response_to_csv(response: dict) -> pd.DataFrame:
 
-    # keys_all = response['statuses'][0].keys()
-    # print(keys_all)
-
     keys = ['id', 'created_at',  'geo', 'place',
             'coordinates', 'text', 'truncated']
     user_keys = ['name', 'screen_name']
@@ -433,12 +446,10 @@ def response_to_csv(response: dict) -> pd.DataFrame:
     df['created_at_tz'] = [t.tz_localize('UTC').tz_convert(
         'Europe/Berlin') for t in df['created_at']]
 
-#    print(df.info())
-#    pdb.set_trace()
     return df
 
-
 # --------------------------------------------
+
 
 def extract_place(df):
     df_place = df.loc[~df['place'].isna(), :].copy()
@@ -527,8 +538,6 @@ def sort_mkl_st(df):
 def add_sentiment_digit(df):
     # expect :  df_stx
     # add columns ['sentiment_digit'], ['confidence_digit'],
-
-    # remove neutral
     df_pn = df.copy()
 
     df_pn['sentiment_digit'] = df_pn['sentiment']
@@ -756,7 +765,6 @@ def visualize_count(df, size):
     cs = 'Agsunset'  # 'Earth', 'Geyser', 'Viridis', 'thermal', 'solor', 'balance'
     positive_color = sample_colorscale(cs, 0.9)[0]
     negative_color = sample_colorscale(cs, 0.1)[0]
-    overall_color = sample_colorscale(cs, 0.5)[0]
 
     trace_zero = go.Scatter(
         x=[xmin, xmax],
@@ -827,11 +835,13 @@ def aggregate_sentiment(df, freq='60S'):
 
     df_agg = pd.DataFrame()
     df_agg['confidence_mean'] = df.groupby(pd.Grouper(
-        key='created_at', freq=freq)).mean()['confidence_digit']
+        key='created_at', freq=freq)).mean()['confidence_digit_zero_neutral']
     df_agg['confidence_std'] = df.groupby(pd.Grouper(
-        key='created_at', freq=freq)).std()['confidence_digit']
+        key='created_at', freq=freq)).std()['confidence_digit_zero_neutral']
     df_agg['count'] = df.groupby(pd.Grouper(
-        key='created_at', freq=freq)).count()['confidence_digit']
+        key='created_at', freq=freq)).count()['confidence_digit_zero_neutral']
+
+    # ---------------------------------------
 
     df_agg['positive_mean'] = df[df['sentiment'] == 'Positive'].groupby(
         pd.Grouper(key='created_at', freq=freq)).mean()['confidence_digit']
@@ -856,11 +866,13 @@ def aggregate_sentiment_tz(df, freq='60S'):
 
     df_agg = pd.DataFrame()
     df_agg['confidence_mean'] = df.groupby(pd.Grouper(
-        key='created_at_tz', freq=freq)).mean()['confidence_digit']
+        key='created_at_tz', freq=freq)).mean()['confidence_digit_zero_neutral']
     df_agg['confidence_std'] = df.groupby(pd.Grouper(
-        key='created_at_tz', freq=freq)).std()['confidence_digit']
+        key='created_at_tz', freq=freq)).std()['confidence_digit_zero_neutral']
     df_agg['count'] = df.groupby(pd.Grouper(
-        key='created_at_tz', freq=freq)).count()['confidence_digit']
+        key='created_at_tz', freq=freq)).count()['confidence_digit_zero_neutral']
+
+    # ---------------------------------------
 
     df_agg['positive_mean'] = df[df['sentiment'] == 'Positive'].groupby(
         pd.Grouper(key='created_at_tz', freq=freq)).mean()['confidence_digit']
@@ -1023,7 +1035,6 @@ def remove_duplicates(outfile):
     df['id'] = df['id'].astype(np.int64)
 
 # this does not work
-#    df['created_at'] = df['created_at'].astype('datetime64[ns]')
     print(df.info())
     column_order = ['id', 'created_at', 'created_at_tz', 'geo', 'place', 'coordinates',
                     'text', 'text_en', 'truncated', 'name', 'screen_name', ]
