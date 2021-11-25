@@ -83,17 +83,8 @@ def query_text_mbs(BT):
     lat, lon = get_lat_lon(landmark=LAND_MARK)
     GEO = 'geocode='+str(lat)+','+str(lon)+','+str(RADIUS)+'km'
 
-#    URL = URL_TWITTER_API + QUERY+'&'+GEO+'&'+LANG+'&'+COUNT+'&'+RECENT
-#    URL = URL_TWITTER_API + GEO+'&'+LANG+'&'+COUNT+'&'+RT
-#    URL = URL_TWITTER_API + GEO+'&'+LANG+'&'+COUNT
     URL = URL_TWITTER_API + QUERY+'&'+GEO+'&'+LANG+'&'+COUNT+'&'+RT+'&'+RECENT
     return URL, HEADERS
-
-# --------------------------------------------
-# def collect_tweet(BT):
-#     URL, HEADERS = query_text_mbs(BT)
-#     response = requests.request("GET", URL, headers=HEADERS).json()
-#     return response
 
 # --------------------------------------------
 # polling function : curate tweets collections
@@ -145,13 +136,7 @@ current record length {initial_length} {max_id_str}',
 {initial_length} {m[0:4]} {m[4:8]} {m[8:12]} {m[12:16]} {m[16:20]}',
             file=log_file_color)
 
-# # steelblue skyblue plum orchid darkorchid pink lightpink
-#     else:
-#         initial_length = 0
-# #        since_id_str = '0'
-# #        since_id = 0
-# #        max_id = 0
-#         max_id_str = '0'
+# steelblue skyblue plum orchid darkorchid pink lightpink
 
     return max_id_str, initial_length
 
@@ -187,14 +172,6 @@ def polling_tweets(BT, DEEPL_AK,
                                                             LOG_FILE,
                                                             LOG_FILE_COLOR)
 
-        # print(' ')
-        # print('len(df_list)', len(df_list))
-        # print('revised_length ', revised_length)
-        # print('old_max_str ', max_id_str)
-        # print('new_max_str ', new_max_str)
-        # pdb.set_trace()
-        # store relevant files
-#        if int(new_max_str) > int(max_id_str):
         if revised_length > prev_length:
             preprocess_mbs(outfile,
                            MKL_AK, MKL_ST_MODEL_ID, MKL_EX_MODEL_ID,
@@ -212,10 +189,7 @@ def polling_tweets(BT, DEEPL_AK,
 
         time.sleep(t_sleep)
 
-    # post_polling(new_max_str, revised_length, LOG_FILE=LOG_FILE,
-    #              LOG_FILE_COLOR=LOG_FILE_COLOR)
-
-#    return
+    return
 
 # --------------------------------------------
 
@@ -234,30 +208,17 @@ def fetch_tweets(outfile, URL, HEADERS, max_id_str,
                          headers=HEADERS).json()
     if len(r['statuses']) == 0:
         new_max_str = r['search_metadata']['max_id_str']
-        # print('')
-        # print('zero r')
-        # print('old_max_str ', max_id_str)
-        # print('new_max_str ', new_max_str)
 
         return new_max_str, revised_length, df_list
 
     clean_r = clean_response(r)
     if len(clean_r['statuses']) == 0:
         new_max_str = clean_r['search_metadata']['max_id_str']
-        # print('')
-        # print('zero clean_r')
-        # print('old_max_str ', max_id_str)
-        # print('new_max_str ', new_max_str)
-
         return new_max_str, revised_length, df_list
 
     # revise new_max_str
     new_max_str = clean_r['search_metadata']['max_id_str']
     # ---------------------------
-    # store file
-    # print('inside fetch', len(clean_r['statuses']))
-    # print('old_max_str', max_id_str)
-    # print('new_max_str', new_max_str)
     df = response_to_csv(clean_r)
     # =============================================
     # DEEPL
@@ -267,11 +228,8 @@ def fetch_tweets(outfile, URL, HEADERS, max_id_str,
 
     df = pd.concat(df_list, axis=0)
     df.drop_duplicates(subset=['id'], inplace=True)
-#    length_after = len(df)
 
     df.sort_values(['id'], inplace=True)
-#    print(df.info())
-#    pdb.set_trace()
     column_order = ['id', 'created_at', 'created_at_tz', 'geo', 'place', 'coordinates',
                     'text', 'text_en', 'truncated', 'name', 'screen_name', ]
     if Path(outfile).exists():
@@ -280,11 +238,6 @@ def fetch_tweets(outfile, URL, HEADERS, max_id_str,
                   header=False, index=False)
     else:
         df.to_csv(outfile,  columns=column_order, index=False)
-
-#    print('')
-#    print('in fetch')
-#    print(df.tail())
-#    pdb.set_trace()
 
     retrieved_length = len(df)
     revised_length = revised_length + retrieved_length
@@ -318,7 +271,6 @@ ret: {retrieved_length:3} tot: {revised_length:5}', end='', file=log_file)
 
 def post_polling(max_id_str, revised_length, LOG_FILE, LOG_FILE_COLOR):
     # loggin only
-
     # terminal / text log file / for web page
     m = max_id_str
 
@@ -349,7 +301,6 @@ def preprocess_mbs(outfile,
     df = pd.read_csv(input_file,
                      parse_dates=['created_at'])
 
-#    pdb.set_trace()  # already broken
     # =============================================
     # monkey learn
     # --------------------------------------------
@@ -357,27 +308,15 @@ def preprocess_mbs(outfile,
     df_kex = get_mkl_ex_dummy(df_stx, MKL_AK, MKL_EX_MODEL_ID)
     df_kex.to_csv(DATA_DIR/'mbs_kex.csv', index=False)
 
-#    print('df_kex inside preprocess_mbs')
-#     print(df_kex.info())
-#     pdb.set_trace()
     # =============================================
     # aggregate
     # --------------------------------------------
     df_pn = add_sentiment_digit(df_kex)
     df_pn.to_csv(DATA_DIR/'mbs_pn.csv', index=False)
 
-#    print('df_pn')
-#    print(df_pn.info())
-#    pdb.set_trace()
-
 #    df_pn['created_at'] = df_pn['created_at'].astype('datetime64[ns]')
     df_pn['created_at_tz'] = df_pn['created_at_tz'].astype('datetime64[ns]')
-    #    df_agg = aggregate_sentiment(df_pn, freq='12H')
-
     df_agg = aggregate_sentiment_tz(df_pn, freq='12H')
- #   print('df_agg')
-#    print(df_agg.info())
-#    pdb.set_trace()
 
     # need to store index as well, since that is the datetime
     df_agg.to_csv(DATA_DIR/'mbs_agg.csv')
@@ -415,9 +354,6 @@ def clean_response(response):
 
 def response_to_csv(response: dict) -> pd.DataFrame:
 
-    # keys_all = response['statuses'][0].keys()
-    # print(keys_all)
-
     keys = ['id', 'created_at',  'geo', 'place',
             'coordinates', 'text', 'truncated']
     user_keys = ['name', 'screen_name']
@@ -433,12 +369,10 @@ def response_to_csv(response: dict) -> pd.DataFrame:
     df['created_at_tz'] = [t.tz_localize('UTC').tz_convert(
         'Europe/Berlin') for t in df['created_at']]
 
-#    print(df.info())
-#    pdb.set_trace()
     return df
 
-
 # --------------------------------------------
+
 
 def extract_place(df):
     df_place = df.loc[~df['place'].isna(), :].copy()
@@ -1023,7 +957,6 @@ def remove_duplicates(outfile):
     df['id'] = df['id'].astype(np.int64)
 
 # this does not work
-#    df['created_at'] = df['created_at'].astype('datetime64[ns]')
     print(df.info())
     column_order = ['id', 'created_at', 'created_at_tz', 'geo', 'place', 'coordinates',
                     'text', 'text_en', 'truncated', 'name', 'screen_name', ]
