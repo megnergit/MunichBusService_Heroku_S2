@@ -108,5 +108,5 @@ https://github.com/megnergit/MunichBusService_Heroku_S2/blob/main/README.md).
 
         Here 'inner city' is defined by RADIUS_INNEN from 
         **Marien Platz**, which roughly corresponds to inside the **Mittlerer Ring**.
-        The outer boundary of the suburbs is set at the radius RADIUS.
+        The outer boundary of the 'outer city' is set at the radius RADIUS.
         "
