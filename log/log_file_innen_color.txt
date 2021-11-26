@@ -49,3 +49,7 @@
 <b style="color:salmon">2021-11-26 19:07:13 </b>                     <b style="color:indianred">max_id</b> 1464 1141 2564 3132 933 <b style="color:deeppink">ret</b>:   1 <b style="color:firebrick">tot</b>:    14
 <b style="color:salmon">2021-11-26 19:07:18 </b> <b style="color:plum"> current record length</b> 159 1464 1141 2564 3132 933
 <b style="color:salmon">2021-11-26 19:07:18 </b>                     <b style="color:indianred">max_id</b> 1464 2802 1905 8114 561 <b style="color:deeppink">ret</b>:  11 <b style="color:firebrick">tot</b>:   170
+<b style="color:salmon">2021-11-26 19:47:15 </b> <b style="color:slateblue">revised record length </b>14 1464 3047 6079 4849 282
+<b style="color:salmon">2021-11-26 19:47:20 </b> <b style="color:slateblue">revised record length </b>170 1464 3047 8104 9143 319
+<b style="color:salmon">2021-11-26 20:12:47 </b> <b style="color:plum"> current record length</b> 14 1464 1141 2564 3132 933
+<b style="color:salmon">2021-11-26 20:12:49 </b> <b style="color:plum"> current record length</b> 170 1464 2802 1905 8114 561
