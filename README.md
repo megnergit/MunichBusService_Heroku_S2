@@ -1,3 +1,4 @@
+
 # How People Like Munich Bus Service
 
 How people are satisfied with the bus service in Munich? We collected
@@ -81,9 +82,14 @@ your own account at each service, and plug them in the code.
 
 -----------------------------------------------------------------
 ## Screenshot
-The App is running for a while on [Heroku]()
 
+The App is running
+[**HERE**](https://pacific-wave-32478.herokuapp.com) at the moment
+(Nov 2021), and will be stopped soon, after we collect enough amount
+of data to answer the questions below. When the App is correctly
+running, we should see a page something like this.
 
+![fig.1](./images/screen_shot.png)
 
 ---------------------------------------------------------------
 ## Conclusions
