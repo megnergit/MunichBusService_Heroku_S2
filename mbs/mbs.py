@@ -1,3 +1,8 @@
+import pretty_errors
+import pdb
+import time
+import leafmap.foliumap as folium
+import ast
 from datetime import timedelta
 import pandas as pd
 import numpy as np
@@ -14,21 +19,19 @@ from wordcloud import WordCloud
 from folium import Circle
 from datetime import datetime
 import config
-import ast
-import leafmap.foliumap as folium
-import time
-import pdb
-import pretty_errors
+# from importlib import reload
+# reload(config)
+# from importlib import reload
+# https://qiita.com/Krypf/items/68c1f7c26efd084cf207
 # ====================================
 # Authentication
 # ====================================
-AK = config.API_KEY  # not really necessary
-AKS = config.API_KEY_SECRET  # not really necessary
-BT = config.BEARER_TOKEN
 
+BT = config.BEARER_TOKEN
 MKL_AK = config.MONKEYLEARN_API_KEY
 MKL_ST_MODEL_ID = config.MONKEYLEARN_SENTIMENT_MODEL_ID
 MKL_EX_MODEL_ID = config.MONKEYLEARN_KEYWORD_EXTRACTOR_MODEL_ID
+
 
 # ====================================
 # house keeping
@@ -193,6 +196,9 @@ def polling_tweets(BT, DEEPL_AK,
 
     return
 
+
+# --------------------------------------------
+# scratch
 # --------------------------------------------
 
 
@@ -209,6 +215,7 @@ def fetch_tweets(outfile,
 
     r = requests.request("GET", URL+'&since_id='+max_id_str,
                          headers=HEADERS).json()
+
     if len(r['statuses']) == 0:
         new_max_str = r['search_metadata']['max_id_str']
         return new_max_str, revised_length, df_list
@@ -643,18 +650,6 @@ def visualize_pn(df, size=640, vertical=True):
     fig = go.Figure(data=data, layout=layout)
     return fig
 
-
-# ============================================
-# scratch
-# DATA_DIR = Path('./data/')
-# df = pd.read_csv(DATA_DIR / 'mbs_agg.csv',
-#                  parse_dates=['created_at_tz'],
-#                  index_col='created_at_tz')
-
-# df.index.freq = df.index.inferred_freq
-# df.info()
-# df.head(3)
-# df.index[0].day_name()
 
 # ============================================
 
