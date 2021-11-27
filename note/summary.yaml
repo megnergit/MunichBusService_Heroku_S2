@@ -25,18 +25,19 @@
         are sent from **20 km** from MarienPlatz. **Twitter API** was used.
         The majority of the tweets about a bus are from '**MVVticker**'
         reporting delays, accidents, and coming back to the
-        normality. Tweets by 'MVVticker' are removed.
+        normality. Tweets by the user 'MVVticker' are removed.
 
-        2. Translate German texts to **English**, using **DeepL API**, for 
-        the sentiment analysis.
+        2. Translate **German** texts to **English**, using **DeepL API**, 
+        to apply the sentiment analysis that works only in Englith.
 
         3. **Sentiments** and **keywords** are extracted from the texts. 
-        **MonkeyLearn API** was used.The sentiments are weighted by the 
+        **MonkeyLearn APIs** are used. The sentiments are weighted by the 
         'confidence' (that comes with the sentiment analysis), and are 
         averaged to the overall sentiment. The neutral sentiments are 
-        removed (weighted to zero).
+        not counted (weighted to zero).
 
-        4. Use **`plotly`** (for the diagrams), **`foilum`** (map), 
+        4. Use **`plotly`** (for the diagrams and the pie charts), 
+        **`foilum`** (map), 
         and **`wordcloud`** (wordcloud) to create the **visualizations**.
 
         5. Put the visualizations into a **dynamic webpage** using 
