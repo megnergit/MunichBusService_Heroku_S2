@@ -63,3 +63,13 @@
 <b style="color:salmon">2021-11-27 05:33:33 </b> <b style="color:slateblue">revised record length </b>170 1464 4523 0836 0744 970
 <b style="color:salmon">2021-11-27 05:33:48 </b> <b style="color:plum"> current record length</b> 170 1464 2802 1905 8114 561
 <b style="color:salmon">2021-11-27 05:33:54 </b> <b style="color:plum"> current record length</b> 14 1464 1141 2564 3132 933
+<b style="color:salmon">2021-11-27 08:33:49 </b>                     <b style="color:indianred">max_id</b> 1464 4905 9535 1736 320 <b style="color:deeppink">ret</b>:   1 <b style="color:firebrick">tot</b>:   171
+<b style="color:salmon">2021-11-27 10:33:51 </b>                     <b style="color:indianred">max_id</b> 1464 5271 4143 8111 750 <b style="color:deeppink">ret</b>:   2 <b style="color:firebrick">tot</b>:   173
+<b style="color:salmon">2021-11-27 11:33:52 </b>                     <b style="color:indianred">max_id</b> 1464 5330 6208 4182 018 <b style="color:deeppink">ret</b>:   3 <b style="color:firebrick">tot</b>:   176
+<b style="color:salmon">2021-11-27 11:33:56 </b>                     <b style="color:indianred">max_id</b> 1464 5330 6208 4182 018 <b style="color:deeppink">ret</b>:   1 <b style="color:firebrick">tot</b>:    15
+<b style="color:salmon">2021-11-27 13:33:54 </b> <b style="color:slateblue">revised record length </b>176 1464 5731 9021 9476 999
+<b style="color:salmon">2021-11-27 13:33:58 </b> <b style="color:slateblue">revised record length </b>15 1464 5732 0954 2496 264
+<b style="color:salmon">2021-11-27 21:42:30 </b> <b style="color:plum"> current record length</b> 15 1464 5330 6208 4182 018
+<b style="color:salmon">2021-11-27 21:42:30 </b>                     <b style="color:indianred">max_id</b> 1464 6625 8271 5953 166 <b style="color:deeppink">ret</b>:   1 <b style="color:firebrick">tot</b>:    16
+<b style="color:salmon">2021-11-27 21:42:33 </b> <b style="color:plum"> current record length</b> 176 1464 5330 6208 4182 018
+<b style="color:salmon">2021-11-27 21:42:34 </b>                     <b style="color:indianred">max_id</b> 1464 6890 5374 4439 301 <b style="color:deeppink">ret</b>:   9 <b style="color:firebrick">tot</b>:   185
