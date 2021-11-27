@@ -97,7 +97,6 @@ with open(NOTE_FILE, 'r') as s:
         note = yaml.safe_load(s)
     except yaml.YAMLError as e:
         print(e)
-
 # =====================================================================
 # streamlit building
 # =====================================================================

@@ -299,7 +299,6 @@ revised record length {revised_length} {max_id_str}',
 {revised_length} {m[0:4]} {m[4:8]} {m[8:12]} {m[12:16]} {m[16:20]}',
             file=log_file_color)
 
-
 # ============================================
 # scratch for pie chart
 # --------------------------------------------

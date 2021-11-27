@@ -4,6 +4,7 @@ importlib-metadata==3.10.0
 streamlit==1.2.0
 streamlit_autorefresh==0.0.1
 requests==2.25.0
+PyYAML==6.0
 geopandas==0.10.2
 geopy==2.2.0
 monkeylearn==3.6.0

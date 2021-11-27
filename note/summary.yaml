@@ -1,7 +1,7 @@
     note1: <b style="color:salmon">CAUTION 1</b> </br>
         This is a **mock-up** dashboard. The contents do not reflect
-	the actual
-        sentiments of the tweets. This is because I used up the credits to
+        the actual sentiments of the tweets. This is because I used
+        up the credits to
         send the queries to the sentiment-analysis API by MonkeyLearn during
         the code-development phase. Currently the App is working with a dummy
         sentiment-analysis function that returns random values.
@@ -15,7 +15,7 @@
         As you see below, the App uses a number of APIs. The **API keys** are
         stored locally in the file 'config.py', and not given in the GitHub
         repo (the API keys are stamped out). You can obtain
-	the API keys yourself by creating your own
+        the API keys yourself by creating your own
         account at each service, and plug them in the file. 
 
     what: "### What the App does 
