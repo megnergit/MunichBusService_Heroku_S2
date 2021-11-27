@@ -19,8 +19,8 @@ if __name__ == '__main__':
 [outfile="tweet.csv"] [n_stopper=100] [t_sleep=1] [innen False]')
         exit()
 
-    AK = config.API_KEY  # not really necessary
-    AKS = config.API_KEY_SECRET  # not really necessary
+#    AK = config.API_KEY  # not really necessary
+#    AKS = config.API_KEY_SECRET  # not really necessary
     BT = config.BEARER_TOKEN
     DEEPL_AK = config.DEEPL_API_KEY
 
