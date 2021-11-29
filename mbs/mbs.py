@@ -18,7 +18,6 @@ from plotly.colors import sample_colorscale
 from wordcloud import WordCloud
 from folium import Circle
 from datetime import datetime
-import config
 # from importlib import reload
 # reload(config)
 # from importlib import reload
@@ -26,7 +25,6 @@ import config
 # ====================================
 # Authentication
 # ====================================
-
 BT = config.BEARER_TOKEN
 MKL_AK = config.MONKEYLEARN_API_KEY
 MKL_ST_MODEL_ID = config.MONKEYLEARN_SENTIMENT_MODEL_ID
@@ -1041,7 +1039,7 @@ def plot_sentiment(df_stx):
 # remove_duplicates(outfile)
 
 
-def remove_duplicates(outfile):
+def backlog_mbs(outfile):
     df = pd.read_csv(outfile, parse_dates=['created_at'])
     print(len(df))
     df.drop_duplicates(subset=['id'], inplace=True)
@@ -1066,8 +1064,20 @@ def remove_duplicates(outfile):
 
 
 # ====================================
+def remove_duplicates(outfile):
+    df = pd.read_csv(outfile, parse_dates=['created_at'])
+    print(len(df))
+    df.drop_duplicates(subset=['id'], inplace=True)
+    print(len(df))
+    df = pd.read_csv(outfile)
+#    print(df.info())
+
+
+# ====================================
 # scratch : duplicatino check
-# input_file = './data/tweet_bus_de_en.csv'
+input_file = './data/tweet_bus_de_en.csv'
+remove_duplicates(input_file)
+
 # df = pd.read_csv(input_file)
 # print(len(df))
 # print(len(df.drop_duplicates(subset=['id'])))
