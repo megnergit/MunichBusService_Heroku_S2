@@ -1075,8 +1075,9 @@ def remove_duplicates(outfile):
 
 # ====================================
 # scratch : duplicatino check
-input_file = './data/tweet_bus_de_en.csv'
-remove_duplicates(input_file)
+# input_file = './data/tweet_bus_de_en.csv'
+# input_file = './data_innen/test1.csv'
+# remove_duplicates(input_file)
 
 # df = pd.read_csv(input_file)
 # print(len(df))
