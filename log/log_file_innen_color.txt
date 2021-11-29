@@ -78,3 +78,10 @@
 <b style="color:salmon">2021-11-28 08:42:39 </b> <b style="color:slateblue">revised record length </b>195 1464 8622 8193 0616 835
 <b style="color:salmon">2021-11-28 08:43:08 </b> <b style="color:plum"> current record length</b> 16 1464 6625 8271 5953 166
 <b style="color:salmon">2021-11-28 08:43:10 </b> <b style="color:plum"> current record length</b> 195 1464 7166 6337 9705 862
+<b style="color:salmon">2021-11-28 10:43:11 </b>                     <b style="color:indianred">max_id</b> 1464 8900 8692 3902 976 <b style="color:deeppink">ret</b>:   5 <b style="color:firebrick">tot</b>:   200
+<b style="color:salmon">2021-11-28 11:43:13 </b>                     <b style="color:indianred">max_id</b> 1464 8950 8085 0931 724 <b style="color:deeppink">ret</b>:   6 <b style="color:firebrick">tot</b>:   206
+<b style="color:salmon">2021-11-28 14:43:14 </b>                     <b style="color:indianred">max_id</b> 1464 9516 7125 6137 728 <b style="color:deeppink">ret</b>:   7 <b style="color:firebrick">tot</b>:   213
+<b style="color:salmon">2021-11-28 19:43:12 </b> <b style="color:slateblue">revised record length </b>16 1465 0285 1625 3102 084
+<b style="color:salmon">2021-11-28 19:43:17 </b> <b style="color:slateblue">revised record length </b>213 1465 0174 0890 5748 480
+<b style="color:salmon">2021-11-29 01:00:03 </b> <b style="color:plum"> current record length</b> 213 1464 9413 2496 1034 245
+<b style="color:salmon">2021-11-29 01:00:07 </b> <b style="color:plum"> current record length</b> 16 1464 6625 8271 5953 166
