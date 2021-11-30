@@ -116,3 +116,5 @@
 <b style="color:salmon">2021-11-29 19:51:48 </b> <b style="color:plum"> current record length</b> 279 1465 3627 4053 7708 545
 <b style="color:salmon">2021-11-29 19:51:49 </b>                     <b style="color:indianred">max_id</b> 1465 3845 1665 5230 984 <b style="color:deeppink">ret</b>:   2 <b style="color:firebrick">tot</b>:   281
 <b style="color:salmon">2021-11-29 23:51:51 </b>                     <b style="color:indianred">max_id</b> 1465 4415 3006 8578 320 <b style="color:deeppink">ret</b>:   3 <b style="color:firebrick">tot</b>:   284
+<b style="color:salmon">2021-11-30 06:51:50 </b> <b style="color:slateblue">revised record length </b>17 1465 5591 7137 8651 145
+<b style="color:salmon">2021-11-30 06:51:54 </b> <b style="color:slateblue">revised record length </b>284 1465 5514 2780 0117 250

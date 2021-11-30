@@ -102,7 +102,7 @@ with open(NOTE_FILE, 'r') as s:
 # =====================================================================
 st.set_page_config(layout='wide')
 # autoreload
-count = st_autorefresh(interval=1000 * 1200, limit=16, key=ST_KEY)
+count = st_autorefresh(interval=1000 * 3600 * 12, limit=14, key=ST_KEY)
 
 # --------------------------------------------
 # 1. row : cautions
