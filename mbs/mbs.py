@@ -386,7 +386,7 @@ def preprocess_mbs(outfile,
     # --------------------------------------------
     df_stx = get_mkl_st_dummy(df, MKL_AK, MKL_ST_MODEL_ID)
     df_kex = get_mkl_ex_dummy(df_stx, MKL_AK, MKL_EX_MODEL_ID)
-    df_kex.to_csv(DATA_DIR/'mbs_kex.csv',=False)
+    df_kex.to_csv(DATA_DIR/'mbs_kex.csv', index=False)
 
     # =============================================
     # aggregate
