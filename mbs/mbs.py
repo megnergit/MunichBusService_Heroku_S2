@@ -1,3 +1,4 @@
+import os
 import pretty_errors
 import pdb
 import time
@@ -385,7 +386,7 @@ def preprocess_mbs(outfile,
     # --------------------------------------------
     df_stx = get_mkl_st_dummy(df, MKL_AK, MKL_ST_MODEL_ID)
     df_kex = get_mkl_ex_dummy(df_stx, MKL_AK, MKL_EX_MODEL_ID)
-    df_kex.to_csv(DATA_DIR/'mbs_kex.csv', index=False)
+    df_kex.to_csv(DATA_DIR/'mbs_kex.csv',=False)
 
     # =============================================
     # aggregate
@@ -1067,20 +1068,28 @@ def remove_duplicates(outfile):
     print(len(df))
     df.drop_duplicates(subset=['id'], inplace=True)
     print(len(df))
-    df = pd.read_csv(outfile)
+    df.to_csv(outfile, index=False)
 #    print(df.info())
 
 
 # ====================================
+# duplication
+# ====================================
 # scratch : duplicatino check
+# Path('.').cwd()
+# os.chdir('/Users/meg/git10/scr/main')
 # input_file = './data/tweet_bus_de_en.csv'
-# input_file = './data_innen/test1.csv'
+# # input_file = './data_innen/test1.csv'
 # remove_duplicates(input_file)
 
-# df = pd.read_csv(input_file)
-# print(len(df))
-# print(len(df.drop_duplicates(subset=['id'])))
-
+# ====================================
+# preprocessing
+# # ====================================
+# outfile = './data/tweet_bus_de_en.csv'
+# DATA_DIR = Path('./data')
+# preprocess_mbs(outfile,
+#                MKL_AK, MKL_ST_MODEL_ID, MKL_EX_MODEL_ID,
+#                DATA_DIR)
 # ====================================
 # END
 # ====================================
