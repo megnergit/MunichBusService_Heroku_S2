@@ -304,7 +304,7 @@ revised record length {revised_length} {max_id_str}',
 
 def visualize_pie(df, size, text):
     # expect df_agg
-    yesterday = datetime.today() - timedelta(days=2)
+    yesterday = datetime.today() - timedelta(days=1)
 
     df_agg = aggregate_sentiment_tz(df, freq='1D')
     df_yesterday = df_agg.loc[[x.date() == yesterday.date()
@@ -649,8 +649,6 @@ def visualize_pn(df, size=640, vertical=True):
 
 
 # ============================================
-
-
 def visualize_agg(df, size):
 
     xmin = df.index[0] - df.index.freq

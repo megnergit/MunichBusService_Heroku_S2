@@ -99,3 +99,20 @@
 <b style="color:salmon">2021-11-29 06:59:39 </b> <b style="color:plum"> current record length</b> 16 1464 6625 8271 5953 166
 <b style="color:salmon">2021-11-29 06:59:46 </b> <b style="color:plum"> current record length</b> 213 1464 9413 2496 1034 245
 <b style="color:salmon">2021-11-29 06:59:47 </b>                     <b style="color:indianred">max_id</b> 1465 1840 1468 0141 828 <b style="color:deeppink">ret</b>:   1 <b style="color:firebrick">tot</b>:   214
+<b style="color:salmon">2021-11-29 08:59:39 </b>                     <b style="color:indianred">max_id</b> 1465 2186 4454 4299 012 <b style="color:deeppink">ret</b>:   1 <b style="color:firebrick">tot</b>:    17
+<b style="color:salmon">2021-11-29 08:59:48 </b>                     <b style="color:indianred">max_id</b> 1465 2261 4057 4957 578 <b style="color:deeppink">ret</b>:   2 <b style="color:firebrick">tot</b>:   216
+<b style="color:salmon">2021-11-29 09:59:49 </b>                     <b style="color:indianred">max_id</b> 1465 2419 2969 6821 254 <b style="color:deeppink">ret</b>:   3 <b style="color:firebrick">tot</b>:   219
+<b style="color:salmon">2021-11-29 10:59:50 </b>                     <b style="color:indianred">max_id</b> 1465 2542 0495 2301 569 <b style="color:deeppink">ret</b>:   4 <b style="color:firebrick">tot</b>:   223
+<b style="color:salmon">2021-11-29 11:59:52 </b>                     <b style="color:indianred">max_id</b> 1465 2705 6273 7950 722 <b style="color:deeppink">ret</b>:   5 <b style="color:firebrick">tot</b>:   228
+<b style="color:salmon">2021-11-29 12:59:53 </b>                     <b style="color:indianred">max_id</b> 1465 2840 3757 3021 696 <b style="color:deeppink">ret</b>:   6 <b style="color:firebrick">tot</b>:   234
+<b style="color:salmon">2021-11-29 13:59:56 </b>                     <b style="color:indianred">max_id</b> 1465 3032 8946 1981 195 <b style="color:deeppink">ret</b>:   7 <b style="color:firebrick">tot</b>:   241
+<b style="color:salmon">2021-11-29 14:59:57 </b>                     <b style="color:indianred">max_id</b> 1465 3148 3333 5824 386 <b style="color:deeppink">ret</b>:   8 <b style="color:firebrick">tot</b>:   249
+<b style="color:salmon">2021-11-29 15:59:58 </b>                     <b style="color:indianred">max_id</b> 1465 3342 5548 8311 300 <b style="color:deeppink">ret</b>:   9 <b style="color:firebrick">tot</b>:   258
+<b style="color:salmon">2021-11-29 16:59:59 </b>                     <b style="color:indianred">max_id</b> 1465 3481 5086 0918 784 <b style="color:deeppink">ret</b>:  10 <b style="color:firebrick">tot</b>:   268
+<b style="color:salmon">2021-11-29 17:59:43 </b> <b style="color:slateblue">revised record length </b>17 1465 3648 6345 5318 031
+<b style="color:salmon">2021-11-29 18:00:01 </b>                     <b style="color:indianred">max_id</b> 1465 3627 4053 7708 545 <b style="color:deeppink">ret</b>:  11 <b style="color:firebrick">tot</b>:   279
+<b style="color:salmon">2021-11-29 18:00:20 </b> <b style="color:slateblue">revised record length </b>279 1465 3627 4053 7708 545
+<b style="color:salmon">2021-11-29 19:51:46 </b> <b style="color:plum"> current record length</b> 17 1465 2186 4454 4299 012
+<b style="color:salmon">2021-11-29 19:51:48 </b> <b style="color:plum"> current record length</b> 279 1465 3627 4053 7708 545
+<b style="color:salmon">2021-11-29 19:51:49 </b>                     <b style="color:indianred">max_id</b> 1465 3845 1665 5230 984 <b style="color:deeppink">ret</b>:   2 <b style="color:firebrick">tot</b>:   281
+<b style="color:salmon">2021-11-29 23:51:51 </b>                     <b style="color:indianred">max_id</b> 1465 4415 3006 8578 320 <b style="color:deeppink">ret</b>:   3 <b style="color:firebrick">tot</b>:   284
