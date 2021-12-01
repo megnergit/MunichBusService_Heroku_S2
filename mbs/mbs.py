@@ -1084,14 +1084,14 @@ def remove_duplicates(outfile):
 
 # ====================================
 # preprocessing
-# # ====================================
-Path('.').cwd()
-os.chdir('/Users/meg/git10/scr/main')
-outfile = './data/tweet_bus_de_en.csv'
-DATA_DIR = Path('./data')
-preprocess_mbs(outfile,
-               MKL_AK, MKL_ST_MODEL_ID, MKL_EX_MODEL_ID,
-               DATA_DIR)
+# # # ====================================
+# Path('.').cwd()
+# os.chdir('/Users/meg/git10/scr/main')
+# outfile = './data/tweet_bus_de_en.csv'
+# DATA_DIR = Path('./data')
+# preprocess_mbs(outfile,
+#                MKL_AK, MKL_ST_MODEL_ID, MKL_EX_MODEL_ID,
+#                DATA_DIR)
 # ====================================
 # END
 # ====================================
