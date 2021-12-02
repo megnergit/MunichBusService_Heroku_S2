@@ -305,11 +305,17 @@ revised record length {revised_length} {max_id_str}',
 
 def visualize_pie(df, size, text):
     # expect df_agg
-    yesterday = datetime.today() - timedelta(days=1)
 
     df_agg = aggregate_sentiment_tz(df, freq='1D')
+    yesterday = datetime.today() - timedelta(days=1)
+
     df_yesterday = df_agg.loc[[x.date() == yesterday.date()
                                for x in df_agg.index], :]
+
+    while len(df_yesterday) == 0:
+        yesterday = yesterday - timedelta(days=1)
+        df_yesterday = df_agg.loc[[x.date() == yesterday.date()
+                                   for x in df_agg.index], :]
 
     cols = ['count_positive', 'count_neutral', 'count_negative']
     labels = [s.replace('count_', '').capitalize() for s in cols]
