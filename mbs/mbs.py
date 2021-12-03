@@ -1018,7 +1018,7 @@ def visualize_wc(wc):
 def plot_sentiment(df_stx):
 
     df_geo = extract_place(df_stx)
-    center = get_lat_lon()
+    center = get_lat_lon('Marienplatz, Munich')
     tiles = 'openstreetmap'
     # tiles = 'Stamen Terrain'
     # tiles = 'cartodbpositron'

@@ -158,3 +158,9 @@
 <b style="color:salmon">2021-12-03 03:15:20 </b> <b style="color:plum"> current record length</b> 241 1466 3640 9113 2526 600
 <b style="color:salmon">2021-12-03 03:15:21 </b>                     <b style="color:indianred">max_id</b> 1466 5035 6303 9973 379 <b style="color:deeppink">ret</b>:   7 <b style="color:firebrick">tot</b>:   248
 <b style="color:salmon">2021-12-03 03:15:22 </b> <b style="color:slateblue">revised record length </b>248 1466 5035 6303 9973 379
+<b style="color:salmon">2021-12-03 05:21:46 </b> <b style="color:plum"> current record length</b> 248 1466 4714 9822 7531 785
+<b style="color:salmon">2021-12-03 05:21:47 </b> <b style="color:slateblue">revised record length </b>248 1466 6236 7350 3211 523
+<b style="color:salmon">2021-12-03 16:31:08 </b> <b style="color:plum"> current record length</b> 248 1466 4714 9822 7531 785
+<b style="color:salmon">2021-12-03 16:31:09 </b> <b style="color:slateblue">revised record length </b>248 1466 7921 2500 1916 419
+<b style="color:salmon">2021-12-03 16:31:13 </b> <b style="color:plum"> current record length</b> 19 1465 7712 4716 2302 467
+<b style="color:salmon">2021-12-03 16:31:14 </b> <b style="color:slateblue">revised record length </b>19 1466 7921 4532 7509 504
