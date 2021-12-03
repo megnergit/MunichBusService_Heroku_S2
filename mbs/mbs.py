@@ -1023,7 +1023,7 @@ def plot_sentiment(df_stx):
     # tiles = 'Stamen Terrain'
     # tiles = 'cartodbpositron'
     # tiles = 'mapquestopen'
-    zoom = 12
+    zoom = 11
     m_1 = folium.Map(location=center, tiles=tiles, zoom_start=zoom)
 
     dump = [Circle([r['lat'], r['lon']],
@@ -1085,12 +1085,12 @@ def remove_duplicates(outfile):
 # Path('.').cwd()
 # os.chdir('/Users/meg/git10/scr/main')
 # input_file = './data/tweet_bus_de_en.csv'
-# # input_file = './data_innen/test1.csv'
+# input_file = './data_innen/test1.csv'
 # remove_duplicates(input_file)
 
 # ====================================
 # preprocessing
-# # # ====================================
+# ====================================
 # Path('.').cwd()
 # os.chdir('/Users/meg/git10/scr/main')
 # outfile = './data/tweet_bus_de_en.csv'
