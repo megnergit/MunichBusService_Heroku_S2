@@ -48,7 +48,7 @@ def show_all() -> None:
 def get_lat_lon(landmark='Marienplatz'):
     # Marienplatz
     # (11.57540 48.13714)
-    # centroid Nunich
+    # centroid Munich
     #  11.525549293315658, 48.1548901
     results_geocode = geocode(landmark)
     lon = results_geocode['geometry'].x.values[0]
