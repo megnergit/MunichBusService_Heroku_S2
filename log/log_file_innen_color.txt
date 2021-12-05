@@ -164,3 +164,16 @@
 <b style="color:salmon">2021-12-03 16:31:09 </b> <b style="color:slateblue">revised record length </b>248 1466 7921 2500 1916 419
 <b style="color:salmon">2021-12-03 16:31:13 </b> <b style="color:plum"> current record length</b> 19 1465 7712 4716 2302 467
 <b style="color:salmon">2021-12-03 16:31:14 </b> <b style="color:slateblue">revised record length </b>19 1466 7921 4532 7509 504
+<b style="color:salmon">2021-12-03 19:28:52 </b> <b style="color:plum"> current record length</b> 248 1466 4714 9822 7531 785
+<b style="color:salmon">2021-12-03 19:29:06 </b> <b style="color:plum"> current record length</b> 248 1466 4714 9822 7531 785
+<b style="color:salmon">2021-12-03 19:29:06 </b>                     <b style="color:indianred">max_id</b> 1466 8076 7439 0171 653 <b style="color:deeppink">ret</b>:   2 <b style="color:firebrick">tot</b>:   250
+<b style="color:salmon">2021-12-03 19:29:08 </b> <b style="color:slateblue">revised record length </b>250 1466 8076 7439 0171 653
+<b style="color:salmon">2021-12-04 10:05:46 </b> <b style="color:plum"> current record length</b> 250 1466 8076 7439 0171 653
+<b style="color:salmon">2021-12-04 10:05:47 </b> <b style="color:slateblue">revised record length </b>250 1467 0575 2995 5909 632
+<b style="color:salmon">2021-12-04 10:05:53 </b> <b style="color:plum"> current record length</b> 19 1465 7712 4716 2302 467
+<b style="color:salmon">2021-12-04 10:05:54 </b> <b style="color:slateblue">revised record length </b>19 1467 0575 6069 1822 594
+<b style="color:salmon">2021-12-04 11:07:09 </b> <b style="color:plum"> current record length</b> 250 1466 8076 7439 0171 653
+<b style="color:salmon">2021-12-04 11:07:10 </b> <b style="color:slateblue">revised record length </b>250 1467 0729 7843 3482 753
+<b style="color:salmon">2021-12-05 07:01:36 </b> <b style="color:plum"> current record length</b> 250 1466 8076 7439 0171 653
+<b style="color:salmon">2021-12-05 07:01:37 </b>                     <b style="color:indianred">max_id</b> 1467 1966 2960 6453 249 <b style="color:deeppink">ret</b>:   1 <b style="color:firebrick">tot</b>:   251
+<b style="color:salmon">2021-12-05 07:01:38 </b> <b style="color:slateblue">revised record length </b>251 1467 1966 2960 6453 249
