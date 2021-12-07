@@ -402,7 +402,7 @@ def preprocess_mbs(outfile,
 #    df_pn['created_at'] = df_pn['created_at'].astype('datetime64[ns]')
     df_pn['created_at_tz'] = pd.to_datetime(df_pn['created_at_tz'])
 #     df_agg = aggregate_sentiment_tz(df_pn, freq='12H')
-    df_agg = aggregate_sentiment_tz(df_pn, freq='1D')
+    df_agg = aggregate_sentiment_tz(df_pn, freq='24H')
 
     # need to store index as well, since that is the datetime
     df_agg.to_csv(DATA_DIR/'mbs_agg.csv')
