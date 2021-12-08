@@ -31,7 +31,6 @@ MKL_AK = config.MONKEYLEARN_API_KEY
 MKL_ST_MODEL_ID = config.MONKEYLEARN_SENTIMENT_MODEL_ID
 MKL_EX_MODEL_ID = config.MONKEYLEARN_KEYWORD_EXTRACTOR_MODEL_ID
 
-
 # ====================================
 # house keeping
 # ====================================
