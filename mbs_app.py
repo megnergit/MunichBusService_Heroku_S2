@@ -10,6 +10,7 @@ import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 import yaml
 import pdb
+from datetime import datetime, timedelta
 # ====================================
 # Authentication
 # ====================================
@@ -35,6 +36,15 @@ df_agg = pd.read_csv(DATA_DIR / 'mbs_agg.csv',
                      parse_dates=['created_at_tz'],
                      index_col='created_at_tz')
 
+# --------------------------------------------
+# innen / aussen only 14 days before
+# --------------------------------------------
+tx = datetime.now() - timedelta(days=14)
+df_agg = df_agg.loc[df_agg.index.date > tx.date(), :]
+
+# --------------------------------------------
+# innen / aussen only 14 days before
+# --------------------------------------------
 df_agg.index.freq = df_agg.index.inferred_freq
 
 df_pn = pd.read_csv(DATA_DIR / 'mbs_pn.csv')
@@ -51,6 +61,8 @@ df_pn_innen['created_at'] = pd.to_datetime(df_pn_innen['created_at'])
 df_pn_innen['created_at_tz'] = pd.to_datetime(df_pn_innen['created_at_tz'])
 df_pn_aussen = df_pn.loc[~df_pn['id'].isin(df_pn_innen['id'].to_list()), :]
 
+# import os
+# os.chdir('/Users/meg/git10/scr/main/')
 # --------------------------------------------
 # innen / aussen
 # --------------------------------------------
@@ -166,6 +178,7 @@ df_words.sort_values(['frac'], ascending=False, inplace=True)
 
 col1, col2, col3 = st.columns((2, 0.9, 0.9))
 with col1:
+
     st.markdown('### Where people are satisfied/dissatisfied?')
     m_1.to_streamlit(height=size*1)
 
