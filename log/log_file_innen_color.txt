@@ -301,3 +301,6 @@
 <b style="color:salmon">2022-01-06 20:35:44 </b> <b style="color:slateblue">revised record length </b>295 1479 0684 7341 0084 868
 <b style="color:salmon">2022-01-07 20:17:07 </b> <b style="color:plum"> current record length</b> 295 1479 0684 7341 0084 868
 <b style="color:salmon">2022-01-07 20:17:08 </b> <b style="color:slateblue">revised record length </b>295 1479 5325 7104 2197 511
+<b style="color:salmon">2022-01-08 19:34:59 </b> <b style="color:plum"> current record length</b> 295 1479 0684 7341 0084 868
+<b style="color:salmon">2022-01-08 19:35:00 </b>                     <b style="color:indianred">max_id</b> 1479 8797 3057 2705 793 <b style="color:deeppink">ret</b>:   1 <b style="color:firebrick">tot</b>:   296
+<b style="color:salmon">2022-01-08 19:35:01 </b> <b style="color:slateblue">revised record length </b>296 1479 8797 3057 2705 793
