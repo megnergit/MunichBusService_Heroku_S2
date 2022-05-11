@@ -144,7 +144,6 @@ current record length {initial_length} {max_id_str}',
 
 # --------------------------------------------
 
-
 def polling_tweets(BT, DEEPL_AK,
                    outfile='./data/tweet_bus_de_en.csv',
                    n_stopper=3, t_sleep=1,
@@ -377,7 +376,6 @@ def visualize_pie(df, size, text):
 
 # --------------------------------------------
 
-
 def preprocess_mbs(outfile,
                    MKL_AK, MKL_ST_MODEL_ID, MKL_EX_MODEL_ID,
                    DATA_DIR):
@@ -389,8 +387,10 @@ def preprocess_mbs(outfile,
     # =============================================
     # monkey learn
     # --------------------------------------------
-    df_stx = get_mkl_st_dummy(df, MKL_AK, MKL_ST_MODEL_ID)
-    df_kex = get_mkl_ex_dummy(df_stx, MKL_AK, MKL_EX_MODEL_ID)
+#    df_stx = get_mkl_st_dummy(df, MKL_AK, MKL_ST_MODEL_ID)
+#    df_kex = get_mkl_ex_dummy(df_stx, MKL_AK, MKL_EX_MODEL_ID)
+    df_stx = get_mkl_st(df, MKL_AK, MKL_ST_MODEL_ID)
+    df_kex = get_mkl_ex(df_stx, MKL_AK, MKL_EX_MODEL_ID)
     df_kex.to_csv(DATA_DIR/'mbs_kex.csv', index=False)
 
     # =============================================
@@ -460,13 +460,14 @@ def response_to_csv(response: dict) -> pd.DataFrame:
 
 # --------------------------------------------
 
-
 def extract_place(df):
     df_place = df.loc[~df['place'].isna(), :].copy()
     place_list = df_place['place'].to_list()
 
-    if type(place_list[0]) == type('s'):
+
+    if (len(place_list) != 0) and  (type(place_list[0]) == type('s')):
         place_list = [ast.literal_eval(d) for d in place_list]
+#    pdb.set_trace()
 
     lon_list = []
     lat_list = []
@@ -480,6 +481,16 @@ def extract_place(df):
     df_place['lat'] = lat_list
 
     return df_place
+
+#=============================================
+# scratch
+# --------------------------------------------
+# df = pd.read_csv('./data/mbs_kex.csv')
+# x = get_mkl_ex(df, MKL_AK, MKL_EX_MODEL_ID)
+# x = extract_place(df)
+# x.to_csv('x')
+# x = plot_sentiment(df)
+# df['geo']
 
 # --------------------------------------------
 
@@ -1013,7 +1024,6 @@ def visualize_wc(wc):
     return fig
 
 # --------------------------------------------
-
 
 def plot_sentiment(df_stx):
 
