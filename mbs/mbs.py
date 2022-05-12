@@ -4,7 +4,7 @@ import pdb
 import time
 import leafmap.foliumap as folium
 import ast
-from datetime import timedelta
+from datetime import timedelta, datetime
 import pandas as pd
 import numpy as np
 import urllib
@@ -18,7 +18,7 @@ import plotly.graph_objs as go
 from plotly.colors import sample_colorscale
 from wordcloud import WordCloud
 from folium import Circle
-from datetime import datetime
+# from datetime import datetime
 # from importlib import reload
 # reload(config)
 # from importlib import reload
@@ -300,7 +300,6 @@ revised record length {revised_length} {max_id_str}',
 # scratch for pie chart
 # --------------------------------------------
 
-
 def visualize_pie(df, size, text):
     # expect df_agg
 
@@ -436,7 +435,6 @@ def clean_response(response):
 
 # --------------------------------------------
 
-
 def response_to_csv(response: dict) -> pd.DataFrame:
 
     keys = ['id', 'created_at',  'geo', 'place',
@@ -491,7 +489,33 @@ def extract_place(df):
 # x.to_csv('x')
 # x = plot_sentiment(df)
 # df['geo']
+# DATA_DIR = Path('./data')
+# df = pd.read_csv(DATA_DIR/'mbs_pn.csv')
 
+# df['created_at'] = df['created_at'].astype('datetime64[ns]')
+# df['created_at_tz'] = [t.tz_localize('UTC').tz_convert(
+#     'Europe/Berlin') for t in df['created_at']]
+
+# x = pd.to_datetime(df['created_at_tz'], infer_datetime_format=True) 
+# s = df.loc[:,'created_at_tz']
+# pd.to_datetime(s, utc=True)
+
+# df['created_at_tz'] = pd.to_datetime(df['created_at_tz'])
+# help(pd.to_datetime)
+# df.info()
+
+# df_agg = aggregate_sentiment_tz(df, freq='24H')
+# freq = '24H'
+# x = df.groupby(pd.Grouper(key='created_at_tz', freq=freq))
+# freq = '24H'
+# x = pd.Grouper(key='created_at_tz', freq=freq)
+# df.groupby(x)
+# df['created_at_tz']
+# df.index
+# df.info()
+#    df_pn['created_at'] = df_pn['created_at'].astype('datetime64[ns]')
+# df_pn['created_at_tz'] = pd.to_datetime(df_pn['created_at_tz'])
+#     df_agg = aggregate_sentiment_tz(df_pn, freq='12H')
 # --------------------------------------------
 
 
@@ -854,7 +878,10 @@ def visualize_count(df, size):
 
 
 # ====================================
+# scratch
+# ====================================
 
+# ---------------------------------------
 def aggregate_sentiment(df, freq='60S'):
     # expect sentiment df_kex
 
@@ -1086,7 +1113,6 @@ def remove_duplicates(outfile):
     print(len(df))
     df.to_csv(outfile, index=False)
 #    print(df.info())
-
 
 # ====================================
 # duplication

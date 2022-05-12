@@ -49,8 +49,9 @@ df_agg.index.freq = df_agg.index.inferred_freq
 
 df_pn = pd.read_csv(DATA_DIR / 'mbs_pn.csv')
 df_pn['created_at'] = pd.to_datetime(df_pn['created_at'])
-df_pn['created_at_tz'] = pd.to_datetime(df_pn['created_at_tz'])
-
+df_pn['created_at_tz'] = [t.tz_localize('UTC').tz_convert(
+    'Europe/Berlin') for t in df_pn['created_at']]
+# df_pn['created_at_tz'] = pd.to_datetime(df_pn['created_at_tz'])
 df_kex = pd.read_csv(DATA_DIR / 'mbs_kex.csv')
 # --------------------------------------------
 # innenstadt < 4km
@@ -58,7 +59,9 @@ df_kex = pd.read_csv(DATA_DIR / 'mbs_kex.csv')
 # df = pd.read_csv(DATA_DIR_INNEN / 'mbs_kex.csv')
 df_pn_innen = pd.read_csv(DATA_DIR_INNEN / 'mbs_pn.csv')
 df_pn_innen['created_at'] = pd.to_datetime(df_pn_innen['created_at'])
-df_pn_innen['created_at_tz'] = pd.to_datetime(df_pn_innen['created_at_tz'])
+df_pn_innen['created_at_tz'] = [t.tz_localize('UTC').tz_convert(
+    'Europe/Berlin') for t in df_pn_innen['created_at']]
+# df_pn_innen['created_at_tz'] = pd.to_datetime(df_pn_innen['created_at_tz'])
 df_pn_aussen = df_pn.loc[~df_pn['id'].isin(df_pn_innen['id'].to_list()), :]
 
 # import os
