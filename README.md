@@ -83,11 +83,10 @@ your own account at each service, and plug them in the code.
 -----------------------------------------------------------------
 ## Screenshot
 
-The App is running
-[**HERE**](https://pacific-wave-32478.herokuapp.com) at the moment
-(Nov 2021), and will be stopped soon, after we collect enough amount
-of data to answer the questions below. When the App is correctly
-running, we should see a page something like this.
+The App was running on
+[Heroku](https://pacific-wave-32478.herokuapp.com) in Nov 2021 for the
+demonstration purpose (was successful), but now stopped. When the App
+is correctly running, we should see a page something like this.
 
 ![fig.1](./images/screen_shot.png)
 
